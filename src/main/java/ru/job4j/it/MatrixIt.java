@@ -36,7 +36,6 @@ public class MatrixIt implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        boolean rowExits = row < data.length;
         if (row >= data.length) {
             return false;
         }
