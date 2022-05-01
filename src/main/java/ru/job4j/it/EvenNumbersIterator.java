@@ -23,13 +23,10 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        if (index < data.length) {
-            int result = data[index];
-            index++;
-            findNext();
-            return result;
-        }
-        return null;
+        int result = data[index];
+        index++;
+        findNext();
+        return result;
     }
 
     private void findNext() {
