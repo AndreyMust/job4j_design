@@ -15,8 +15,8 @@ public class App {
 
         for (int[] row: in) {
             for (int el: row) {
-                //System.out.println(row.length);
-                //System.out.println(el);
+                System.out.println(row.length);
+                System.out.println(el);
                 arrayList.add(el);
             }
         }
