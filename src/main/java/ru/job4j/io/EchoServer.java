@@ -22,16 +22,10 @@ public class EchoServer {
                     String str = in.readLine();
                     if (str != null && !str.isEmpty()) {
                         System.out.println(str);
-                        if ("hello".equals(str.substring(10, 15).toLowerCase(Locale.ROOT))) {
-                            out.write("Server say: Hello!".getBytes());
-                            break;
-                        } else if ("exit".equals(str.substring(10, 14).toLowerCase(Locale.ROOT))) {
-                            out.write("Server say: Exit!".getBytes());
-                            System.out.println("Server stop...");
+                        if ("bye".equals(str.substring(10, 13).toLowerCase(Locale.ROOT))) {
+                            out.write("Server say: Bye!!".getBytes());
                             server.close();
-                            break;
-                        } else {
-                            out.write("Server say: What ?".getBytes());
+                            System.out.println("Server stop...");
                             break;
                         }
                     }
