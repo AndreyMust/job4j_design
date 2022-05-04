@@ -8,6 +8,7 @@ create table users(
 insert into users(fio, age, adress)
 values('Иванов',33, 'Москва 15'), ('Петров',31, 'Москва 44'),
 ('Сидоров',41, 'Питер 34')
+;
 
 create table orders(
     id serial primary key,
@@ -20,7 +21,7 @@ create table orders(
 insert into orders(description, count, good_id, user_id)
 values('Батарейки', 2, 5321, 1),('Очки', 1, 5336, 1),
 ('Батарейки', 5, 5321, 3),('Очки', 1, 5336, 2)
-
+;
 
 --отобразить Пользователей, которые заказывали Очки
 select u.fio
@@ -33,3 +34,10 @@ select o.description, o.count
 from users as u
 join orders as o on o.user_id = u.id
 where u.fio = 'Сидоров'
+;
+
+--отобразить Пользователей и их заказы
+select u.fio, o.description, o.count
+from users as u
+join orders as o on o.user_id = u.id
+;
