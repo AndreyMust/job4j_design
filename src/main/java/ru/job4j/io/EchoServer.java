@@ -26,7 +26,6 @@ public class EchoServer {
                             out.write("Server say: Bye!!".getBytes());
                             server.close();
                             System.out.println("Server stop...");
-                            break;
                         }
                     }
                     out.flush();
