@@ -15,7 +15,12 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
+                    /*
+                        Тут читается весь входной поток
+                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine())
+                     */
+                    String str = in.readLine();
+                    if (str != null && !str.isEmpty()) {
                         System.out.println(str);
                         if ("hello".equals(str.substring(10, 15).toLowerCase(Locale.ROOT))) {
                             out.write("Server say: Hello!".getBytes());
