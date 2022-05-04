@@ -17,10 +17,16 @@ public class EchoServer {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                         System.out.println(str);
-                        if ("bye".equals(str.substring(10, 13).toLowerCase(Locale.ROOT))) {
-                            out.write("Server say: Bye!!".getBytes());
-                            server.close();
+                        if ("hello".equals(str.substring(10, 15).toLowerCase(Locale.ROOT))) {
+                            out.write("Server say: Hello!".getBytes());
+                            break;
+                        } else if ("exit".equals(str.substring(10, 14).toLowerCase(Locale.ROOT))) {
+                            out.write("Server say: Exit!".getBytes());
                             System.out.println("Server stop...");
+                            server.close();
+                            break;
+                        } else {
+                            out.write("Server say: What ?".getBytes());
                             break;
                         }
                     }
