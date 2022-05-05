@@ -3,6 +3,9 @@ package ru.job4j.collection;
 import ru.job4j.list.List;
 import java.util.*;
 
+/*
+    создадим реализацию списка на основе динамического массива, аналог ArrayList.
+ */
 public class SimpleArrayList<T> implements List<T> {
 
     private T[] container;
@@ -14,16 +17,16 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     private void upSize() {
-        if (size + 1 >= container.length) {
-            container =  Arrays.copyOf(container, container.length * 2);
-        }
-        size++;
+        container =  Arrays.copyOf(container, container.length * 2);
     }
 
     @Override
     public void add(T value) {
-        upSize();
-        container[size - 1] = value;
+        if (size == container.length) {
+            upSize();
+        }
+        container[size] = value;
+        size++;
         modCount++;
     }
 
