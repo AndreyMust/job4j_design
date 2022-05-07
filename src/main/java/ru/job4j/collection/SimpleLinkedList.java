@@ -67,7 +67,7 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return count < size;
+                return current != null;
             }
 
             @Override
@@ -75,9 +75,9 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                current = count == 0 ? head : current.next;
-                count++;
-                return current.item;
+                Node<E> res = current;
+                current = current.next;
+                return res.item;
             }
         };
     } /* End of Iterator */
