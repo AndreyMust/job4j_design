@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /* задача перевернуть односвязный список */
+/* Удалить head в односвязном списке     */
 public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
 
@@ -18,6 +19,16 @@ public class ForwardLinked<T> implements Iterable<T> {
             tail = tail.next;
         }
         tail.next = node;
+    }
+
+    public T deleteFirst() {
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        Node<T> deleted = head;
+        head = head.next;
+
+        return deleted.value;
     }
 
     public boolean revert() {
