@@ -13,13 +13,14 @@ public class UsageLogSlf4j {
         int intValue = 333;
         byte byteValue = (byte) 333;
         char charValue = 'x';
+        short shortValue = (short) 15000;
         long longValue = 1000000;
         float floatValue = 990000f;
         double doubleValue = 9900000;
 
         LOG.debug("sting: {}, boolean: {}, int: {}, byte: {}, "
-                       + "char: {}, long: {}, float: {}, double: {}",
+                       + "char: {}, short: {}, long: {}, float: {}, double: {}",
                 stringValue, boolValue, intValue, byteValue,
-                charValue, longValue, floatValue, doubleValue);
+                charValue, shortValue, longValue, floatValue, doubleValue);
     }
 }
