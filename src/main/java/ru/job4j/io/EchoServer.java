@@ -4,9 +4,14 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EchoServer {
-    public static void main(String[] args) throws IOException {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
+
+    public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(9000)) {
             System.out.println("Start server...");
             while (!server.isClosed()) {
@@ -35,6 +40,8 @@ public class EchoServer {
                     out.flush();
                 }
             }
+        } catch (IOException e) {
+            LOG.error("Error", e);
         }
     }
 }
