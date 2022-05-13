@@ -26,6 +26,6 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("./data/log.txt");
-        log.forEach(e -> System.out.println(e));
+        log.forEach(System.out::println);
     }
 }
