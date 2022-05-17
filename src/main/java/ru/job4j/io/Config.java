@@ -20,8 +20,12 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
                     .filter(s -> !s.startsWith("#")
-                            && s.contains("=")
-                            && !s.contains("=="))
+                            && s.contains("="))
+                    .peek(s -> {
+                        if (s.startsWith("=") || s.endsWith("=")) {
+                            throw new IllegalArgumentException();
+                        }
+                    })
                     .forEach(str -> {
 
                                         int pos = str.indexOf("=");
@@ -51,10 +55,11 @@ public class Config {
     }
 
     public static void main(String[] args) {
-        Config config = new Config("./data/app.properties");
+        /*Config config = new Config("./data/app.properties");*/
+        Config config = new Config("./data/pair_config.properties");
         config.load();
         for (String key : config.values.keySet()) {
-            System.out.println("key = " + config.values.get(key));
+            System.out.println("key= " + key + " value=" + config.values.get(key));
         }
     }
 
