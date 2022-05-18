@@ -42,7 +42,7 @@ public class LogFilter {
 
             log.forEach(printWriter::println);
 
-            printWriter.close();
+            printWriter.close(); /* Без этого не происходит записи в файл*/
         } catch (Exception e) {
             e.printStackTrace();
         }
