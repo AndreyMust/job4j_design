@@ -29,45 +29,19 @@ public class Analizy {
 
     private static boolean is400or500(String inStr) {
         String[] split = inStr.split(" ");
-        return split[0].equals("500") || split[0].equals("400");
+        return ("500").equals(split[0]) || ("400").equals(split[0]);
     }
 
     private static boolean is200or300(String inStr) {
         String[] split = inStr.split(" ");
-        return split[0].equals("200") || split[0].equals("300");
-    }
-
-    public static void unavailable(String source, String target) {
-        List<String> inLines;
-        List<String> outLines = new ArrayList<>();
-        try {
-            inLines = Files.readAllLines(Paths.get(source), StandardCharsets.US_ASCII);
-
-            String startTime = "";
-            for (String line : inLines) {
-                String[] split = line.split(" ");
-                if (is400or500(line)) {
-                    if ("".equals(startTime)) {
-                        startTime = split[1];
-                    }
-                } else if ((startTime.length() > 0) && (is200or300(line))) {
-                    outLines.add(startTime + ";" + split[1]);
-                    startTime = "";
-                }
-            }
-
-            writeFile(target, outLines);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return ("200").equals(split[0]) || ("300").equals(split[0]);
     }
 
     private static String getTime(String str) {
         return str.split(" ")[1];
     }
 
-    public static void unavailable1(String source, String target) {
+    public static void unavailable(String source, String target) {
         List<String> inLines = readFile(source);
         List<String> outLines = new ArrayList<>();
         AtomicReference<String> start = new AtomicReference<>("");
@@ -81,13 +55,12 @@ public class Analizy {
                     }
                     return y;
                 })
-                .orElse(null);
+                .orElse("");
         System.out.println(outLines);
         writeFile(target, outLines);
     }
 
     public static void main(String[] args) {
-        unavailable1("./data/server.log", "./data/unavailable.txt");
-
+        unavailable("./data/server.log", "./data/unavailable.txt");
     }
 }
