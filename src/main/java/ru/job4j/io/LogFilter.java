@@ -34,9 +34,23 @@ public class LogFilter {
         }
     }
 
+    public static void save2(List<String> log, String file) {
+        try {
+            FileOutputStream fileStream = new FileOutputStream(file);
+            BufferedOutputStream bufferedStream = new BufferedOutputStream(fileStream);
+            PrintWriter printWriter = new PrintWriter(bufferedStream);
+
+            log.forEach(printWriter::println);
+
+            printWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("./data/log.txt");
-        save(log, "./data/404.txt");
+        save2(log, "./data/404.txt");
     }
 }
