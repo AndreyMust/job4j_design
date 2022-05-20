@@ -6,7 +6,10 @@ import java.nio.file.Path;
 
 public class DuplicatesFinder {
 
-    /* Поиск Дубликатов фалов*/
+    /* build with Maven: mvn package */
+    /* Run: java -jar target/duplicatesFinder.jar */
+
+    /* Поиск Дубликатов фалов */
     public static void main(String[] args) throws IOException {
         DuplicatesVisitor samples = new DuplicatesVisitor();
         Files.walkFileTree(Path.of("./"), samples);
