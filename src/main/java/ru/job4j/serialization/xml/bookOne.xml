@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<!-- Book xml description -->
+<book >
+    <name>Hello Africa!</name>>
+    <listCount>520</listCount>>
+    <isPaperBook>true</isPaperBook>
+    <authors>
+        <author>Ivanov</author>
+        <author>Petrov</author>
+    </authors>
+    <contact phone="22-555-332"/>
+</book>
