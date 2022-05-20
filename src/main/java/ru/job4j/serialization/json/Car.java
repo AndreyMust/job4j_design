@@ -1,5 +1,8 @@
 package ru.job4j.serialization.json;
 
+import org.json.JSONObject;
+import org.json.JSONPropertyIgnore;
+
 import java.util.Arrays;
 
 public class Car {
@@ -9,6 +12,31 @@ public class Car {
     private boolean isElectric;
     private Contact ownerContact;
     private String[] insurances;
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getPower() {
+        return power;
+    }
+
+    public boolean isElectric() {
+        return isElectric;
+    }
+
+    /* @JSONPropertyIgnore */
+    public Contact getOwnerContact() {
+        return ownerContact;
+    }
+
+    public String[] getInsurances() {
+        return insurances;
+    }
 
     public Car(String brand, String name, Integer power,
                boolean isElectric, Contact ownerContact, String[] insurances) {
@@ -30,5 +58,13 @@ public class Car {
                 + ", contact=" + ownerContact
                 + ", insurances=" + Arrays.toString(insurances)
                 + '}';
+    }
+
+    public static void main(String[] args) {
+
+        Car car = new Car("BMW", "X6", 510, false,
+                new Contact("910-233-31"), new String[] {"2019", "2018"});
+
+        System.out.println(new JSONObject(car));
     }
 }
