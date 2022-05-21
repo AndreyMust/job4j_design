@@ -7,8 +7,6 @@ import java.util.Set;
 public class Analize {
 
     public static Info diff(Set<User> previous, Set<User> current) {
-    //public static Long diff(Set<User> previous, Set<User> current) {
-
         Map<Integer, String> previousMap = new HashMap<>();
         Map<Integer, String> currentMap = new HashMap<>();
 
