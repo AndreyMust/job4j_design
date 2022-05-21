@@ -37,5 +37,6 @@ public class Analize {
         Set<User> previous = Set.of(u1, u2, u3);
         Set<User> current = Set.of(u1, u2, u3, new User(4, "D"));
         System.out.println(Analize.diff(previous, current));
+
     }
 }
