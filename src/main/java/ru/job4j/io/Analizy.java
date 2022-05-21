@@ -51,7 +51,7 @@ public class Analizy {
                         start.set(y);
                     }
                     if ((is200or300(y)) && (is400or500(x))) {
-                        outLines.add(getTime(start.get()) + ";" + getTime(y));
+                        outLines.add(getTime(start.get()) + ";" + getTime(y) + ";");
                     }
                     return y;
                 })
