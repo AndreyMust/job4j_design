@@ -16,8 +16,20 @@ public class Search {
         return searcher.getPaths();
     }
 
+    private static void checkArgs(String[] args) {
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar target/search.jar . java");
+        }
+        Path start = Paths.get(args[0]);
+        if (!start.toFile().exists()) {
+            throw new IllegalArgumentException("Paths not exist " + start);
+        }
+    }
+
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith(".class")).forEach(System.out::println);
+        checkArgs(args);
+        Path start = Paths.get(args[0]);
+        String strEnd = args[1];
+        search(start, p -> p.toFile().getName().endsWith(strEnd)).forEach(System.out::println);
     }
 }
