@@ -15,12 +15,12 @@ public class GCDemo {
         System.out.printf("Max: %d%n", maxMemory / MB);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         info();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             new Person(i, "N" + i);
         }
-        System.gc(); /* Run Garbage Collector */
+        /*System.gc();  Run Garbage Collector */
         info();
     }
 }
