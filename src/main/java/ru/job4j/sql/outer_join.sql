@@ -17,7 +17,7 @@ insert into employees(emp_name, department_id) values
     ('Maria', 2), ('Mark', 2), ('Timur', 2), ('Petr', 2),
     ('Jane', 3), ('Jon', 3), ('Kate', 3), ('David', 3);
 
-insert into employees (name) values ('Buratino');
+insert into employees (emp_name) values ('Buratino');
 
 --2. Выполнить запросы с left, rigth, full, cross соединениями
 
