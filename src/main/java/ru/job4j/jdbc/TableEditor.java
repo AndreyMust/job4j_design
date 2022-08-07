@@ -1,18 +1,21 @@
 package ru.job4j.jdbc;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class TableEditor implements AutoCloseable {
 
+    private static final Logger LOG = LogManager.getLogger(TableEditor.class.getName());
     private Connection connection;
     private Properties properties;
 
-    public TableEditor(Properties properties) throws SQLException, ClassNotFoundException {
-        this.properties = properties;
+    public TableEditor() throws SQLException, ClassNotFoundException, IOException {
+        loadProperties();
         initConnection();
     }
 
@@ -22,7 +25,7 @@ public class TableEditor implements AutoCloseable {
         String login = properties.getProperty("jdbc.username");
         String password = properties.getProperty("jdbc.password");
         connection = DriverManager.getConnection(url, login, password);
-        System.out.println("initConnection: ok");
+        LOG.info("initConnection: ok");
     }
 
     private void runSQL(String querySQL, String tableName) {
@@ -35,31 +38,30 @@ public class TableEditor implements AutoCloseable {
 
     public void createTable(String tableName) {
         runSQL(String.format("CREATE TABLE if not exists %s();", tableName), tableName);
-        System.out.println("createTable: ok");
+        LOG.info("createTable: ok");
     }
-
 
     public void dropTable(String tableName) {
         runSQL(String.format("DROP TABLE if exists %s;", tableName), tableName);
-        System.out.println("dropTable: ok");
+        LOG.info("dropTable: ok");
     }
 
     public void addColumn(String tableName, String columnName, String type) {
         runSQL(String.format("ALTER TABLE %s ADD column if not exists %s %s;",
                 tableName, columnName, type), tableName);
-        System.out.println("addColumn: ok");
+        LOG.info("addColumn: ok");
     }
 
     public void dropColumn(String tableName, String columnName) {
         runSQL(String.format("ALTER TABLE %s DROP column %s;",
                 tableName, columnName), tableName);
-        System.out.println("dropColumn: ok");
+        LOG.info("dropColumn: ok");
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) {
         runSQL(String.format("ALTER TABLE %s RENAME column %s to %s;",
                 tableName, columnName, newColumnName), tableName);
-        System.out.println("renameColumn: ok");
+        LOG.info("renameColumn: ok");
     }
 
     public static String getTableScheme(Connection connection, String tableName) throws Exception {
@@ -88,24 +90,24 @@ public class TableEditor implements AutoCloseable {
         }
     }
 
+    public void loadProperties() throws IOException {
+        properties = new Properties();
+        InputStream is = this.getClass().getResourceAsStream("/app.properties");
+        properties.load(is);
+    }
+
     public static void main(String[] args) throws Exception {
         String tableName = "user_table";
         String columnName = "column_one";
         String dataType = "varchar(50)";
         String newColumnName = "column_two";
 
-        try (FileInputStream file = new FileInputStream("data/app.properties")) {
-            Properties properties = new Properties();
-            properties.load(file);
-            try (TableEditor table = new TableEditor(properties)) {
-                table.createTable(tableName);
-                table.addColumn(tableName, columnName, dataType);
-                table.renameColumn(tableName, columnName, newColumnName);
-                table.dropColumn(tableName, newColumnName);
-                table.dropTable(tableName);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        try (TableEditor table = new TableEditor()) {
+            table.createTable(tableName);
+            table.addColumn(tableName, columnName, dataType);
+            table.renameColumn(tableName, columnName, newColumnName);
+            table.dropColumn(tableName, newColumnName);
+            table.dropTable(tableName);
         }
     }
 }

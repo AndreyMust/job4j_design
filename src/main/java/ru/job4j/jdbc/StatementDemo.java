@@ -1,14 +1,27 @@
 package ru.job4j.jdbc;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
 import java.util.StringJoiner;
 
 public class StatementDemo {
+
+    private static Properties loadProperties() throws IOException {
+            InputStream is = StatementDemo.class.getResourceAsStream("/app.properties");
+            Properties props = new Properties();
+            props.load(is);
+            return props;
+    }
+
     private static Connection getConnection() throws Exception {
+        Properties props = loadProperties();
         Class.forName("org.postgresql.Driver");
-        String url = "jdbc:postgresql://localhost:5432/idea_db";
-        String login = "postgres";
-        String password = "password";
+        String url = props.getProperty("jdbc.url");
+        String login = props.getProperty("jdbc.username");
+        String password = props.getProperty("jdbc.password");
+
         return DriverManager.getConnection(url, login, password);
     }
 
@@ -29,6 +42,31 @@ public class StatementDemo {
             }
         }
         return buffer.toString();
+    }
+
+    public void load() {
+        /* try (InputStream is = this.getClass().getResourceAsStream("/app.properties")) { */
+        StatementDemo.class.getResourceAsStream("/app.properties\"");
+        try (InputStream is = this.getClass().getResourceAsStream("/app.properties")) {
+            Properties properties = new Properties();
+            properties.load(is);
+            String serverPort = properties.getProperty("jdbc.username");
+            System.out.println(serverPort);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void load2() {
+        try (InputStream is = StatementDemo.class.getResourceAsStream("/app.properties")) {
+            Properties props = new Properties();
+            props.load(is);
+            String serverPort = props.getProperty("jdbc.username");
+            System.out.println(serverPort);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws Exception {
