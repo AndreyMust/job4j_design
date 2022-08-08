@@ -14,8 +14,7 @@ public class TableEditor implements AutoCloseable {
     private Connection connection;
     private Properties properties;
 
-    public TableEditor() throws SQLException, ClassNotFoundException, IOException {
-        loadProperties();
+    public TableEditor() throws SQLException, ClassNotFoundException {
         initConnection();
     }
 
@@ -32,7 +31,7 @@ public class TableEditor implements AutoCloseable {
         try (Statement statement = connection.createStatement()) {
             statement.execute(querySQL);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOG.error(throwables);
         }
     }
 
@@ -90,12 +89,6 @@ public class TableEditor implements AutoCloseable {
         }
     }
 
-    public void loadProperties() throws IOException {
-        properties = new Properties();
-        InputStream is = this.getClass().getResourceAsStream("/app.properties");
-        properties.load(is);
-    }
-
     public static void main(String[] args) throws Exception {
         String tableName = "user_table";
         String columnName = "column_one";
@@ -103,6 +96,10 @@ public class TableEditor implements AutoCloseable {
         String newColumnName = "column_two";
 
         try (TableEditor table = new TableEditor()) {
+            table.properties = new Properties();
+            InputStream is = TableEditor.class.getResourceAsStream("/app.properties");
+            table.properties.load(is);
+
             table.createTable(tableName);
             table.addColumn(tableName, columnName, dataType);
             table.renameColumn(tableName, columnName, newColumnName);
