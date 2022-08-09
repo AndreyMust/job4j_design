@@ -36,6 +36,6 @@ having count(p.name) =
 (
 	select count(company_id) from person
 	group by company_id
-	order by company_id desc
+	order by count(company_id) desc
 	limit 1
 );
