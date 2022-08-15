@@ -22,17 +22,17 @@ public class ImportDB {
         this.dump = dump;
     }
 
-    public List<User> load() throws IOException {
+    public List<User> load() {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(line -> {
                 String[] user = line.split(";");
-                if (user.length == 2 && !user[0].isEmpty() && !user[1].isEmpty()) {
-                    users.add(new User(user[0], user[1]));
-                } else {
+
+                if (user.length != 2 || user[0].isEmpty() || user[1].isEmpty()) {
                     throw new IllegalArgumentException();
                 }
 
+                users.add(new User(user[0], user[1]));
             });
         } catch (IOException e) {
             System.out.println("File not found.");
