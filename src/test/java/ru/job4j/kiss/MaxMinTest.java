@@ -26,4 +26,12 @@ public class MaxMinTest {
         Integer min = maxMin.min(integerList, (o1, o2) -> o2 - o1);
         Assert.assertEquals(0, (int) min);
     }
+
+    @Test
+    public void testNull() {
+        List<Integer> integerList = Arrays.asList();
+        MaxMin maxMin = new MaxMin();
+        Integer min = maxMin.min(integerList, (o1, o2) -> o2 - o1);
+        Assert.assertNull(min);
+    }
 }

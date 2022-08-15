@@ -15,13 +15,14 @@ public class MaxMin {
         return compare(value, (t1, t2) -> comparator.compare(t2, t1) > 0);
     }
 
-    private <T> T compare(List<T> value, BiPredicate<T, T> predicator) {
-        Iterator<T> iterator = value.iterator();
-        T resultValue = iterator.next();
-        while (iterator.hasNext()) {
-            T nextValue = iterator.next();
-            if (predicator.test(resultValue, nextValue)) {
-                resultValue = nextValue;
+    private <T> T compare(List<T> values, BiPredicate<T, T> predicator) {
+        T resultValue = null;
+        if (values.size() > 0) {
+            resultValue = values.get(0);
+            for (int i = 1; i < values.size(); i++) {
+                if (predicator.test(resultValue, values.get(i))) {
+                    resultValue = values.get(i);
+                }
             }
         }
         return resultValue;
@@ -29,6 +30,7 @@ public class MaxMin {
 
     public static void main(String[] args) {
         List<Integer> integerList = Arrays.asList(3, 4, 5);
+        /*List<Integer> integerList = Arrays.asList();*/
         MaxMin maxMin = new MaxMin();
         System.out.println(maxMin.max(integerList, (o1, o2) -> o2 - o1));
         System.out.println(maxMin.min(integerList, (o1, o2) -> o2 - o1));
