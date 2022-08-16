@@ -1,10 +1,10 @@
 package ru.job4j.jdbc;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -14,7 +14,8 @@ public class TableEditor implements AutoCloseable {
     private Connection connection;
     private Properties properties;
 
-    public TableEditor() throws SQLException, ClassNotFoundException {
+    public TableEditor(Properties properties) throws SQLException, ClassNotFoundException {
+        this.properties = properties;
         initConnection();
     }
 
@@ -95,16 +96,16 @@ public class TableEditor implements AutoCloseable {
         String dataType = "varchar(50)";
         String newColumnName = "column_two";
 
-        try (TableEditor table = new TableEditor()) {
-            table.properties = new Properties();
-            InputStream is = TableEditor.class.getResourceAsStream("/app.properties");
-            table.properties.load(is);
+        Properties properties = new Properties();
+        InputStream is = TableEditor.class.getResourceAsStream("/app.properties");
+        properties.load(is);
 
-            table.createTable(tableName);
-            table.addColumn(tableName, columnName, dataType);
-            table.renameColumn(tableName, columnName, newColumnName);
-            table.dropColumn(tableName, newColumnName);
-            table.dropTable(tableName);
-        }
+        TableEditor table = new TableEditor(properties);
+
+        table.createTable(tableName);
+        table.addColumn(tableName, columnName, dataType);
+        table.renameColumn(tableName, columnName, newColumnName);
+        table.dropColumn(tableName, newColumnName);
+        table.dropTable(tableName);
     }
 }
