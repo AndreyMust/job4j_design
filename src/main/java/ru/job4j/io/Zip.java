@@ -33,18 +33,36 @@ public class Zip {
         }
     }
 
+    private static void validation(String[] args) throws IllegalArgumentException {
+        if (args.length < 3) {
+            throw new IllegalArgumentException("Указаны не все аргументы");
+        }
+        ArgsName argsName = ArgsName.of(args);
+
+        if (argsName.get("d") == null) {
+            throw new IllegalArgumentException("Аргумент -d не найден");
+        }
+        if (argsName.get("e") == null) {
+            throw new IllegalArgumentException("Аргумент -e не найден");
+        }
+        if (argsName.get("o") == null) {
+            throw new IllegalArgumentException("Аргумент -o не найден");
+        }
+        File fileFolder = new File(argsName.get("d"));
+        if (!fileFolder.isDirectory() || !fileFolder.exists()) {
+            throw  new IllegalArgumentException("Директория для архивации не найдена");
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         Zip zip = new Zip();
         zip.packSingleFile(
                 new File("./pom.xml"),
                 new File("./pom.zip")
         );
-
+        validation(args);
 
         ArgsName argsName = ArgsName.of(args);
-        if (args.length < 3) {
-            throw new IllegalArgumentException("Указаны не все аргументы");
-        }
         /* -d - directory - которую мы хотим архивировать. */
         Path mainSource = Paths.get(argsName.get("d"));
         /* -e - exclude - исключить файлы с расширением  */
@@ -53,5 +71,6 @@ public class Zip {
         /* -o - output - выходной файл */
         /* Пример строки:    -d=C:\Projects_Java\job4j_design -e=.class -o=project.zip */
         packFiles(sources, new File(argsName.get("o")));
+
     }
 }
