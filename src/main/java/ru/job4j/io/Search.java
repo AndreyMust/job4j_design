@@ -21,7 +21,7 @@ public class Search {
             throw new IllegalArgumentException("Root folder is null. Usage java -jar target/search.jar .java");
         }
         Path start = Paths.get(args[0]);
-        if (!start.toFile().exists()) {
+        if (!start.toFile().exists() || !start.toFile().isDirectory()) {
             throw new IllegalArgumentException("Paths not exist " + start);
         }
         String fileName = args[1];
