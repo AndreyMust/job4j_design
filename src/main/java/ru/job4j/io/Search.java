@@ -18,11 +18,15 @@ public class Search {
 
     private static void checkArgs(String[] args) {
         if (args.length != 2) {
-            throw new IllegalArgumentException("Root folder is null. Usage java -jar target/search.jar . java");
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar target/search.jar .java");
         }
         Path start = Paths.get(args[0]);
         if (!start.toFile().exists()) {
             throw new IllegalArgumentException("Paths not exist " + start);
+        }
+        String fileName = args[1];
+        if (!fileName.startsWith(".")) {
+            throw new IllegalArgumentException("The file name must start with .");
         }
     }
 
