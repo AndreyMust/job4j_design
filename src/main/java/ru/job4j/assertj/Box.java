@@ -1,6 +1,7 @@
 package ru.job4j.assertj;
 
 public class Box {
+
     private static final String UNKNOWN = "Unknown object";
     private int vertex;
     private final int edge;
@@ -13,19 +14,30 @@ public class Box {
     }
 
     private void init() {
-        type = switch (vertex) {
-            case 0 -> "Sphere";
-            case 4 -> "Tetrahedron";
-            case 8 -> "Cube";
-            default -> UNKNOWN;
-        };
+        switch (vertex) {
+            case 0:
+                type = "Sphere";
+                break;
+            case 4:
+                type = "Tetrahedron";
+                break;
+            case 8:
+                type = "Cube";
+                break;
+            default:
+                type = "sss";
+        }
+
         if (UNKNOWN.equals(type)) {
             vertex = -1;
         }
+
         if (edge <= 0) {
-            vertex = -1; type = UNKNOWN;
+            vertex = -1;
+            type = UNKNOWN;
         }
     }
+
 
     public String whatsThis() {
         return this.type;
@@ -41,11 +53,23 @@ public class Box {
 
     public double getArea() {
         double a = edge;
-        return switch (vertex) {
-            case 0 -> 4 * Math.PI * (a * a);
-            case 4 -> Math.sqrt(3) * (a * a);
-            case 8 -> 6 * (a * a);
-            default -> 0;
-        };
+        double result;
+        switch (vertex) {
+            case 0:
+                result = 4 * Math.PI * (a * a);
+                break;
+            case 4 :
+                result = Math.sqrt(3) * (a * a);
+                break;
+            case 8 :
+                result = 6 * (a * a);
+                break;
+            default :
+                result = 0;
+        }
+        return result;
     }
+
 }
+
+
