@@ -14,19 +14,12 @@ public class Box {
     }
 
     private void init() {
-        switch (vertex) {
-            case 0:
-                type = "Sphere";
-                break;
-            case 4:
-                type = "Tetrahedron";
-                break;
-            case 8:
-                type = "Cube";
-                break;
-            default:
-                type = "sss";
-        }
+        type = switch (vertex) {
+            case 0 -> "Sphere";
+            case 4 -> "Tetrahedron";
+            case 8 -> "Cube";
+            default -> UNKNOWN;
+        };
 
         if (UNKNOWN.equals(type)) {
             vertex = -1;
@@ -53,21 +46,12 @@ public class Box {
 
     public double getArea() {
         double a = edge;
-        double result;
-        switch (vertex) {
-            case 0:
-                result = 4 * Math.PI * (a * a);
-                break;
-            case 4 :
-                result = Math.sqrt(3) * (a * a);
-                break;
-            case 8 :
-                result = 6 * (a * a);
-                break;
-            default :
-                result = 0;
-        }
-        return result;
+        return switch (vertex) {
+            case 0 -> 4 * Math.PI * (a * a);
+            case 4 -> Math.sqrt(3) * (a * a);
+            case 8 -> 6 * (a * a);
+            default -> 0;
+        };
     }
 
 }
