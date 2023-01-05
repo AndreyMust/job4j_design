@@ -37,8 +37,8 @@ select * from  people;
 --many-to-many
 create table pet_owner(
     id serial primary key,
-    pet_id int references pets(id) unique,
-    people_id int references people(id) unique
+    pet_id int references pets(id),
+    people_id int references people(id)
 );
 
 insert into pet_owner(pet_id, people_id) values (1,1);
