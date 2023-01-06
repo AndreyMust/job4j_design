@@ -13,11 +13,11 @@ public class ConsoleChat {
     private static final String CONTINUE = "продолжить";
     private final String path;
     private final String botAnswers;
-
+    private Random random = new Random();
+    private List<String> ansers;
 
     public String getBotFraze() {
-        Random rand = new Random();
-        return readPhrases().get(rand.nextInt(readPhrases().size()));
+        return ansers.get(random.nextInt(ansers.size()));
     }
 
     public ConsoleChat(String path, String botAnswers) {
@@ -30,6 +30,7 @@ public class ConsoleChat {
         List<String> chatLog = new ArrayList<>();
         String botState = CONTINUE;
 
+        ansers = readPhrases();
         System.out.println("Привет, я чат-бот.");
         while (!OUT.equals(botState)) {
             String userFraze = scanner.nextLine();
