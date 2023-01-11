@@ -30,6 +30,8 @@ class HabrCareerDateTimeParserTest {
     }
 
     /*
+    *
+    * Примеры работы с assertj
         https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/Java8DateTimeAssertionsExamples.java
      */
 }
